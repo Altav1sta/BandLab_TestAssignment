@@ -63,4 +63,5 @@ Test assignment for the Backend Engineer position in BandLab
 - Focus on good design and clean implementation
 - Develop your system applying the best software development practices
 - The non-functional requirements and the usage forecast should be only considered
-as design guidelines - there is no need to p
+as design guidelines - there is no need to prove it
+- If you have any questions feel free to ask
