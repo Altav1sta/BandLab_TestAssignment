@@ -1,0 +1,30 @@
+version: '3'
+services:
+  postsapi:
+    image: mediablog/postsapi
+    build:
+      context: ./src/Posts
+      dockerfile: Posts.API/Dockerfile
+    ports:
+      - 32770:8080
+      - 32771:8081
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+
+  rabbitmq:
+    image: rabbitmq:$RABBITMQ_VER
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+        - ./volumes/rabbitmq/data/:/var/lib/rabbitmq/
+        - ./volumes/rabbitmq/log/:/var/log/rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: $RABBITMQ_USER
+      RABBITMQ_DEFAULT_PASS: $RABBITMQ_PWD
+    healthcheck:
+      test: [ "CMD", "nc", "-z", "localhost", "5672" ]
+      interval: 10s
+      timeout: 10s
+      retries: 5
