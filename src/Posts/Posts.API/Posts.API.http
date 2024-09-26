@@ -1,0 +1,32 @@
+@HostAddress = http://localhost:5223
+
+GET {{HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+
+GET {{HostAddress}}/posts/
+Accept: application/json
+
+###
+
+POST {{HostAddress}}/posts/
+Accept: application/json
+Content-Type: multipart/form-data
+
+--boundary
+Content-Disposition: form-data; name="caption"
+This is a test caption
+
+--boundary
+Content-Disposition: form-data; name="author"
+JohnDoe
+
+--boundary
+Content-Disposition: form-data; name="image"; filename="sample-image.jpg"
+Content-Type: image/jpeg
+< ./path/to/sample-image.jpg
+
+--boundary--
+
+###
