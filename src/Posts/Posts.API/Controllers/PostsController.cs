@@ -20,6 +20,7 @@ namespace Posts.API.Controllers
 
         [HttpPost]
         [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
         [ProducesResponseType(500)]
         public IActionResult CreatePost([FromForm] CreatePostRequest request)
         {

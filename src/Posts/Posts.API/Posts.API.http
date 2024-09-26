@@ -30,3 +30,18 @@ Content-Type: image/jpeg
 --boundary--
 
 ###
+
+POST {{HostAddress}}/api/comments
+Content-Type: application/json
+
+{
+  "PostId": 5,
+  "Author": "Me",
+  "Text": "Ha-haaayy!"
+}
+
+###
+
+DELETE {{HostAddress}}/api/comments/{id}
+
+###
