@@ -8,15 +8,8 @@ namespace Posts.API.Controllers
 {
     [Route("api/posts")]
     [ApiController]
-    public class PostsController : ControllerBase
+    public class PostsController(IMessageProducer messageProducer) : ControllerBase
     {
-        private readonly IMessageProducer _messageProducer;
-
-        public PostsController(IMessageProducer messageProducer)
-        {
-            _messageProducer = messageProducer;
-        }
-
         [HttpGet]
         [ProducesResponseType(typeof(GetPostsResponse), 200)]
         [ProducesResponseType(500)]
@@ -41,7 +34,7 @@ namespace Posts.API.Controllers
                 ImageUrl = "example.com" // todo: add storing the original image as a background process and getting its url or request id
             };
 
-            _messageProducer.SendMessage(eventModel, Consts.Queues.CreatePostRequestedQueue);
+            messageProducer.SendMessage(eventModel, Consts.Queues.CreatePostRequestedQueue);
 
             return Ok();
         }

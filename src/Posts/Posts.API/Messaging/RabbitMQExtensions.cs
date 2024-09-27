@@ -25,6 +25,7 @@ namespace Posts.API.Messaging
 
             services.AddScoped<IMessageProducer, RabbitMQProducer>();
 
+            services.AddHostedService<CreateCommentRequestedEventConsumer>();
             services.AddHostedService<CreatePostRequestedEventConsumer>();
 
             return services;
