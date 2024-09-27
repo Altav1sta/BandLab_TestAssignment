@@ -31,9 +31,16 @@ namespace Posts.API.Controllers
         [HttpDelete("{postId}/comments/{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
-        public IActionResult DeleteComment([FromRoute] int postId, [FromRoute] int id)
+        public IActionResult DeleteComment([FromRoute] int postId, [FromRoute] long id)
         {
             // Fire the event which handler will delete the comment and update the counter
+            var eventModel = new DeleteCommentRequestedEvent
+            {
+                PostId = postId,
+                CommentId = id
+            };
+
+            messageProducer.SendMessage(eventModel, Consts.Queues.DeleteCommentRequestedQueue);
 
             return Ok();
         }

@@ -27,6 +27,7 @@ namespace Posts.API.Messaging
 
             services.AddHostedService<CreateCommentRequestedEventConsumer>();
             services.AddHostedService<CreatePostRequestedEventConsumer>();
+            services.AddHostedService<DeleteCommentRequestedEventConsumer>();
 
             return services;
         }
