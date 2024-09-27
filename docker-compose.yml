@@ -8,6 +8,10 @@ services:
     ports:
       - 32770:8080
       - 32771:8081
+    environment:
+      RabbitMQ__Hostname: rabbitmq
+      RabbitMQ__Username: $RABBITMQ_USER
+      RabbitMQ__Password: $RABBITMQ_PWD
     depends_on:
       rabbitmq:
         condition: service_healthy
@@ -15,7 +19,6 @@ services:
   rabbitmq:
     image: rabbitmq:$RABBITMQ_VER
     ports:
-      - 5672:5672
       - 15672:15672
     volumes:
         - ./volumes/rabbitmq/data/:/var/lib/rabbitmq/
