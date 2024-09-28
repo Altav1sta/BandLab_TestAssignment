@@ -1,14 +1,17 @@
 ﻿using Posts.API.Messaging.Events;
+using Posts.API.Services.Interfaces;
 using RabbitMQ.Client;
 
 namespace Posts.API.Messaging.Consumers
 {
-    public class CreateCommentRequestedEventConsumer(IConnection connection, ILogger<CreateCommentRequestedEventConsumer> logger)
+    public class CreateCommentRequestedEventConsumer(IServiceProvider services, IConnection connection, ILogger<CreateCommentRequestedEventConsumer> logger)
         : RabbitMQConsumer<CreateCommentRequestedEvent>(connection, logger, Consts.Queues.CreateCommentRequestedQueue)
     {
-        protected override Task ProcessEventAsync(CreateCommentRequestedEvent eventModel)
+        protected override async Task ProcessEventAsync(CreateCommentRequestedEvent model)
         {
-            return Task.Delay(500);
+            using var scope = services.CreateScope();
+            var service = scope.ServiceProvider.GetRequiredService<ICommentsService>();
+            await service.CreateCommentAsync(model);
         }
     }
 }
