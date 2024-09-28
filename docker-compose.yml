@@ -9,6 +9,7 @@ services:
       - 32770:8080
       - 32771:8081
     environment:
+      ConnectionStrings__Default: Server=sqlserver;Initial Catalog=PostsDB;User Id=sa;Password=$MSSRV_PWD;TrustServerCertificate=True
       RabbitMQ__Hostname: rabbitmq
       RabbitMQ__Username: $RABBITMQ_USER
       RabbitMQ__Password: $RABBITMQ_PWD
@@ -31,3 +32,13 @@ services:
       interval: 10s
       timeout: 10s
       retries: 5
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:$MSSRV_VER
+    environment:
+      ACCEPT_EULA: Y
+      SA_PASSWORD: $MSSRV_PWD
+    ports:
+      - 1433:1433
+    volumes:
+      - ./volumes/sqlserver:/var/opt/mssql/data
