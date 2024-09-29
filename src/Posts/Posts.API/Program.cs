@@ -3,6 +3,7 @@ using Posts.API.Messaging;
 using Posts.API.Services;
 using Posts.API.Services.Interfaces;
 using Posts.Data;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen();
 builder.Services.AddRabbitMQ(builder.Configuration);
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddDbContext<PostsDbContext>(x =>
     x.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 

@@ -1,4 +1,5 @@
-﻿using Posts.API.Messaging.Events;
+﻿using Microsoft.EntityFrameworkCore;
+using Posts.API.Messaging.Events;
 using Posts.API.Services.Interfaces;
 using Posts.Data;
 using Posts.Data.Entities;
@@ -23,6 +24,25 @@ namespace Posts.API.Services
 
             context.Posts.Add(post);
             await context.SaveChangesAsync();
+        }
+
+        public async Task<Post[]> GetPostsAsync(int? cursorCommentsCount, int? cursorId, int limit)
+        {
+            var query = context.Posts.AsNoTracking();
+
+            if (cursorCommentsCount.HasValue && cursorId.HasValue)
+            {
+                query = query.Where(x => x.CommentsCount < cursorCommentsCount
+                    || (x.CommentsCount == cursorCommentsCount && x.Id < cursorId));
+            }
+
+            query = query.OrderByDescending(x => x.CommentsCount).ThenByDescending(x => x.Id);
+
+            var posts = await query
+                .Take(limit)
+                .ToArrayAsync();
+
+            return posts;
         }
     }
 }
