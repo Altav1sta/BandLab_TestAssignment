@@ -12,10 +12,11 @@ services:
       RabbitMQ__Hostname: rabbitmq
       RabbitMQ__Username: $RABBITMQ_USER
       RabbitMQ__Password: $RABBITMQ_PWD
+      PostsApiUrl: http://postsapi:8080
     depends_on:
       rabbitmq:
         condition: service_healthy
-        
+
   postsapi:
     image: mediablog/postsapi
     build:

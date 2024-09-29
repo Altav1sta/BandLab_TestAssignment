@@ -6,7 +6,7 @@ using RabbitMQ.Client;
 
 namespace Common.Messaging
 {
-    public static class RabbitMQExtensions
+    public static class Extensions
     {
         public static IServiceCollection AddRabbitMQ(this IServiceCollection services, IConfiguration config, bool withProducer = false)
         {

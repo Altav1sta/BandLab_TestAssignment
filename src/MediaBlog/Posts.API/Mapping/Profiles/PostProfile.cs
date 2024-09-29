@@ -6,7 +6,7 @@ namespace Posts.API.Mapping.Profiles
     {
         public PostProfile()
         {
-            CreateMap<Data.Entities.Post, Models.Post>();
+            CreateMap<Data.Entities.Post, SDK.Models.Post>();
         }
     }
 }

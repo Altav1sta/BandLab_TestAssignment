@@ -1,4 +1,6 @@
-﻿namespace Gateway.API.Models.Responses
+﻿using Posts.API.SDK.Models;
+
+namespace Gateway.API.Models.Responses
 {
     public class GetPostsResponse
     {

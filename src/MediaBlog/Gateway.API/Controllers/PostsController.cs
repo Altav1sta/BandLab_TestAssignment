@@ -4,20 +4,27 @@ using Common.Messaging.Interfaces;
 using Gateway.API.Models.Requests;
 using Gateway.API.Models.Responses;
 using Microsoft.AspNetCore.Mvc;
+using Posts.API.SDK;
 
 namespace Gateway.API.Controllers
 {
     [Route("api/posts")]
     [ApiController]
-    public class PostsController(IMessageProducer messageProducer) : ControllerBase
+    public class PostsController(IPostsApiClient postsApiClient, IMessageProducer messageProducer) : ControllerBase
     {
         [HttpGet]
         [ProducesResponseType(typeof(GetPostsResponse), 200)]
         [ProducesResponseType(500)]
-        public IActionResult GetAllPosts([FromQuery] int? cursorCommentsCount, [FromQuery] int? cursorId, [FromQuery] int limit = 10)
+        public async Task<IActionResult> GetAllPosts([FromQuery] int? cursorCommentsCount, [FromQuery] int? cursorId, [FromQuery] int limit = 10)
         {
             // TODO: Get posts from cache
-            var response = new GetPostsResponse();
+            var posts = await postsApiClient.GetPostsAsync(cursorCommentsCount, cursorId, limit);
+            var response = new GetPostsResponse
+            {
+                Posts = posts,
+                CursorCommentCount = posts[^1].CommentsCount,
+                CursorId = posts[^1].Id
+            };
 
             return Ok(response);
         }

@@ -6,7 +6,7 @@ namespace Posts.API.Mapping.Profiles
     {
         public CommentProfile()
         {
-            CreateMap<Data.Entities.Comment, Models.Comment>();
+            CreateMap<Data.Entities.Comment, SDK.Models.Comment>();
         }
     }
 }

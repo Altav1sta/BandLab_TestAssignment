@@ -1,4 +1,4 @@
-﻿namespace Gateway.API.Models
+﻿namespace Posts.API.SDK.Models
 {
     public class Comment
     {

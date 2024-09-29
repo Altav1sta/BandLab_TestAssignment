@@ -1,4 +1,4 @@
-﻿namespace Posts.API.Models
+﻿namespace Posts.API.SDK.Models
 {
     public class Post
     {

@@ -15,6 +15,7 @@ WORKDIR /src
 COPY ["Posts.API/Posts.API.csproj", "Posts.API/"]
 RUN dotnet restore "./Posts.API/Posts.API.csproj"
 COPY ["Posts.API/", "Posts.API/"]
+COPY ["Posts.API.SDK/", "Posts.API.SDK/"]
 COPY ["Posts.Data/", "Posts.Data/"]
 COPY ["Common.Messaging/", "Common.Messaging/"]
 WORKDIR "/src/Posts.API"
