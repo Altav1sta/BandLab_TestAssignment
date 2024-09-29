@@ -15,7 +15,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddRabbitMQ(builder.Configuration);
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddDbContext<PostsDbContext>(x =>
-    x.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+    x.UseSqlServer(builder.Configuration.GetConnectionString("PostsDB")));
 
 builder.Services.AddScoped<ICommentsService, CommentsService>();
 builder.Services.AddScoped<IPostsService, PostsService>();

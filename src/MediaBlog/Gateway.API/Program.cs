@@ -6,8 +6,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddRabbitMQ(builder.Configuration, true);
+builder.Services.AddRabbitMQ(builder.Configuration, withProducer: true);
 builder.Services.AddPostsApiClient(builder.Configuration["PostsApiUrl"]!);
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = builder.Configuration.GetConnectionString("Redis");
+});
 
 var app = builder.Build();
 
