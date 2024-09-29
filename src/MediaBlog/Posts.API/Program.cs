@@ -1,3 +1,4 @@
+using Common.Caching;
 using Common.Messaging;
 using Microsoft.EntityFrameworkCore;
 using Posts.API.Messaging.Consumers;
@@ -11,11 +12,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
-builder.Services.AddSwaggerGen();
-builder.Services.AddRabbitMQ(builder.Configuration);
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddDbContext<PostsDbContext>(x =>
     x.UseSqlServer(builder.Configuration.GetConnectionString("PostsDB")));
+builder.Services.AddRabbitMQ(builder.Configuration);
+builder.Services.AddRedis(builder.Configuration.GetConnectionString("Redis")!);
+builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<ICommentsService, CommentsService>();
 builder.Services.AddScoped<IPostsService, PostsService>();

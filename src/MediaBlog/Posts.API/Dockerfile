@@ -17,6 +17,7 @@ RUN dotnet restore "./Posts.API/Posts.API.csproj"
 COPY ["Posts.API/", "Posts.API/"]
 COPY ["Posts.API.SDK/", "Posts.API.SDK/"]
 COPY ["Posts.Data/", "Posts.Data/"]
+COPY ["Common.Caching/", "Common.Caching/"]
 COPY ["Common.Messaging/", "Common.Messaging/"]
 WORKDIR "/src/Posts.API"
 RUN dotnet build "./Posts.API.csproj" -c $BUILD_CONFIGURATION -o /app/build

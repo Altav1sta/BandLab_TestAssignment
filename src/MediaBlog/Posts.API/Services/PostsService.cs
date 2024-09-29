@@ -1,4 +1,5 @@
-﻿using Common.Messaging.Events;
+﻿using Common.Caching.Interfaces;
+using Common.Messaging.Events;
 using Microsoft.EntityFrameworkCore;
 using Posts.API.Services.Interfaces;
 using Posts.Data;
@@ -6,7 +7,7 @@ using Posts.Data.Entities;
 
 namespace Posts.API.Services
 {
-    public class PostsService(PostsDbContext context) : IPostsService
+    public class PostsService(PostsDbContext context, IRedisService redisService, ILogger<PostsService> logger) : IPostsService
     {
         public const int AttachedCommentsCount = 2;
 
@@ -26,6 +27,12 @@ namespace Posts.API.Services
 
             context.Posts.Add(post);
             await context.SaveChangesAsync();
+
+            logger.LogInformation("Post was created.");
+
+            await redisService.ClearFeedPageKeysSetAsync(0);
+
+            logger.LogInformation("Cache was updated.");
         }
 
         public async Task<Post[]> GetPostsAsync(int? cursorCommentsCount, int? cursorId, int limit)

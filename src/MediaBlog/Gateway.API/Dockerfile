@@ -16,6 +16,7 @@ COPY ["Gateway.API/Gateway.API.csproj", "Gateway.API/"]
 RUN dotnet restore "./Gateway.API/Gateway.API.csproj"
 COPY ["Gateway.API/", "Gateway.API/"]
 COPY ["Posts.API.SDK/", "Posts.API.SDK/"]
+COPY ["Common.Caching/", "Common.Caching/"]
 COPY ["Common.Messaging/", "Common.Messaging/"]
 WORKDIR "/src/Gateway.API"
 RUN dotnet build "./Gateway.API.csproj" -c $BUILD_CONFIGURATION -o /app/build

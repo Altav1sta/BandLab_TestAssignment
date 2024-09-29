@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Common.Caching\Common.Caching.csproj" />
     <ProjectReference Include="..\Common.Messaging\Common.Messaging.csproj" />
     <ProjectReference Include="..\Posts.API.SDK\Posts.API.SDK.csproj" />
     <ProjectReference Include="..\Posts.Data\Posts.Data.csproj" />

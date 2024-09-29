@@ -25,6 +25,7 @@ services:
       dockerfile: Posts.API/Dockerfile
     environment:
       ConnectionStrings__PostsDB: Server=sqlserver;Initial Catalog=PostsDB;User Id=sa;Password=$MSSRV_PWD;TrustServerCertificate=True
+      ConnectionStrings__Redis: redis:6379
       RabbitMQ__Hostname: rabbitmq
       RabbitMQ__Username: $RABBITMQ_USER
       RabbitMQ__Password: $RABBITMQ_PWD
