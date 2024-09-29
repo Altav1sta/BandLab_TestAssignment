@@ -3,7 +3,7 @@ services:
   postsapi:
     image: mediablog/postsapi
     build:
-      context: ./src/Posts
+      context: ./src/MediaBlog
       dockerfile: Posts.API/Dockerfile
     ports:
       - 32770:8080
