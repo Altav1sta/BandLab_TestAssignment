@@ -6,8 +6,7 @@ namespace Posts.API.Mapping.Profiles
     {
         public PostProfile()
         {
-            CreateMap<Data.Entities.Post, Models.Post>()
-                .ForMember(x => x.Comments, o => o.Ignore());
+            CreateMap<Data.Entities.Post, Models.Post>();
         }
     }
 }

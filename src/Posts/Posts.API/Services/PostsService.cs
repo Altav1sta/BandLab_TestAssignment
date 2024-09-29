@@ -8,6 +8,8 @@ namespace Posts.API.Services
 {
     public class PostsService(PostsDbContext context) : IPostsService
     {
+        public const int AttachedCommentsCount = 2;
+
         public async Task CreatePostAsync(CreatePostRequestedEvent model)
         {
             var post = new Post
@@ -40,6 +42,7 @@ namespace Posts.API.Services
 
             var posts = await query
                 .Take(limit)
+                .Include(x => x.Comments.OrderByDescending(x => x.Id).Take(AttachedCommentsCount))
                 .ToArrayAsync();
 
             return posts;

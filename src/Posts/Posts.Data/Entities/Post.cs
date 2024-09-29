@@ -13,5 +13,8 @@
         public int CommentsCount { get; set; }
 
         public DateTime CreatedAt { get; set; }
+
+
+        public virtual ICollection<Comment> Comments { get; set; } = [];
     }
 }
