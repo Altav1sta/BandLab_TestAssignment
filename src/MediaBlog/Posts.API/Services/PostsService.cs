@@ -35,10 +35,10 @@ namespace Posts.API.Services
             if (cursorCommentsCount.HasValue && cursorId.HasValue)
             {
                 query = query.Where(x => x.CommentsCount < cursorCommentsCount
-                    || (x.CommentsCount == cursorCommentsCount && x.Id < cursorId));
+                    || (x.CommentsCount == cursorCommentsCount && x.Id > cursorId));
             }
 
-            query = query.OrderByDescending(x => x.CommentsCount).ThenByDescending(x => x.Id);
+            query = query.OrderByDescending(x => x.CommentsCount).ThenBy(x => x.Id);
 
             var posts = await query
                 .Take(limit)
