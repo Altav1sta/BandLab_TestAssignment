@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Posts.API.Messaging.Events;
-using Posts.API.Messaging.Interfaces;
-using Posts.API.Models.Requests;
+﻿using Common.Messaging;
+using Common.Messaging.Events;
+using Common.Messaging.Interfaces;
+using Gateway.API.Models.Requests;
+using Microsoft.AspNetCore.Mvc;
 
-namespace Posts.API.Controllers
+namespace Gateway.API.Controllers
 {
     [Route("api/posts")]
     [ApiController]
@@ -23,7 +24,7 @@ namespace Posts.API.Controllers
                 Text = request.Text
             };
 
-            messageProducer.SendMessage(eventModel, Consts.Queues.CreateCommentRequestedQueue);
+            messageProducer.SendMessage(eventModel, MessagingConsts.Queues.CreateCommentRequestedQueue);
 
             return Ok();
         }
@@ -40,7 +41,7 @@ namespace Posts.API.Controllers
                 CommentId = id
             };
 
-            messageProducer.SendMessage(eventModel, Consts.Queues.DeleteCommentRequestedQueue);
+            messageProducer.SendMessage(eventModel, MessagingConsts.Queues.DeleteCommentRequestedQueue);
 
             return Ok();
         }

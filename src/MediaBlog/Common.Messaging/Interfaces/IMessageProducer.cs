@@ -1,4 +1,4 @@
-﻿namespace Posts.API.Messaging.Interfaces
+﻿namespace Common.Messaging.Interfaces
 {
     public interface IMessageProducer
     {

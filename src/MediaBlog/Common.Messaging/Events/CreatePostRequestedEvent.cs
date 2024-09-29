@@ -1,4 +1,4 @@
-﻿namespace Posts.API.Messaging.Events
+﻿namespace Common.Messaging.Events
 {
     public class CreatePostRequestedEvent
     {

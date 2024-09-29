@@ -1,4 +1,4 @@
-﻿using Posts.API.Messaging.Events;
+﻿using Common.Messaging.Events;
 
 namespace Posts.API.Services.Interfaces
 {

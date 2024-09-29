@@ -1,6 +1,6 @@
-﻿namespace Posts.API
+﻿namespace Common.Messaging
 {
-    public static class Consts
+    public static class MessagingConsts
     {
         public static class Queues
         {

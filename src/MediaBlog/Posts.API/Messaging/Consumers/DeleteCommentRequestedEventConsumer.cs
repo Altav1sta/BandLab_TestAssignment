@@ -1,11 +1,12 @@
-﻿using Posts.API.Messaging.Events;
+﻿using Common.Messaging;
+using Common.Messaging.Events;
 using Posts.API.Services.Interfaces;
 using RabbitMQ.Client;
 
 namespace Posts.API.Messaging.Consumers
 {
     public class DeleteCommentRequestedEventConsumer(IServiceProvider services, IConnection connection, ILogger<DeleteCommentRequestedEventConsumer> logger)
-        : RabbitMQConsumer<DeleteCommentRequestedEvent>(connection, logger, Consts.Queues.DeleteCommentRequestedQueue)
+        : RabbitMQConsumer<DeleteCommentRequestedEvent>(connection, logger, MessagingConsts.Queues.DeleteCommentRequestedQueue)
     {
         protected override async Task ProcessEventAsync(DeleteCommentRequestedEvent model)
         {

@@ -1,9 +1,9 @@
-﻿using Posts.API.Messaging.Interfaces;
+﻿using Common.Messaging.Interfaces;
 using RabbitMQ.Client;
 using System.Text;
 using System.Text.Json;
 
-namespace Posts.API.Messaging
+namespace Common.Messaging
 {
     public class RabbitMQProducer(IConnection rabbitConnection) : IMessageProducer
     {

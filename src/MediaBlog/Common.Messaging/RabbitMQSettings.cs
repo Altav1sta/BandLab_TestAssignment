@@ -1,4 +1,4 @@
-﻿namespace Posts.API.Messaging
+﻿namespace Common.Messaging
 {
     public class RabbitMQSettings
     {

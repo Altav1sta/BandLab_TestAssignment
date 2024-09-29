@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Posts.API.Messaging.Events;
+﻿using Common.Messaging.Events;
+using Microsoft.EntityFrameworkCore;
 using Posts.API.Services.Interfaces;
 using Posts.Data;
 using Posts.Data.Entities;

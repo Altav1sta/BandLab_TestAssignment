@@ -1,13 +1,14 @@
-﻿using Microsoft.Extensions.Options;
-using Posts.API.Messaging.Consumers;
-using Posts.API.Messaging.Interfaces;
+﻿using Common.Messaging.Interfaces;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
 
-namespace Posts.API.Messaging
+namespace Common.Messaging
 {
     public static class RabbitMQExtensions
     {
-        public static IServiceCollection AddRabbitMQ(this IServiceCollection services, IConfiguration config)
+        public static IServiceCollection AddRabbitMQ(this IServiceCollection services, IConfiguration config, bool withProducer = false)
         {
             services.Configure<RabbitMQSettings>(config.GetRequiredSection("RabbitMQ"));
 
@@ -23,11 +24,10 @@ namespace Posts.API.Messaging
                 return connectionFactory.CreateConnection();
             });
 
-            services.AddScoped<IMessageProducer, RabbitMQProducer>();
-
-            services.AddHostedService<CreateCommentRequestedEventConsumer>();
-            services.AddHostedService<CreatePostRequestedEventConsumer>();
-            services.AddHostedService<DeleteCommentRequestedEventConsumer>();
+            if (withProducer)
+            {
+                services.AddScoped<IMessageProducer, RabbitMQProducer>();
+            }
 
             return services;
         }

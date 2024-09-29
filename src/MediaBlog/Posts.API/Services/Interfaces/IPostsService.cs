@@ -1,4 +1,4 @@
-﻿using Posts.API.Messaging.Events;
+﻿using Common.Messaging.Events;
 using Posts.Data.Entities;
 
 namespace Posts.API.Services.Interfaces

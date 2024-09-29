@@ -1,5 +1,6 @@
+using Common.Messaging;
 using Microsoft.EntityFrameworkCore;
-using Posts.API.Messaging;
+using Posts.API.Messaging.Consumers;
 using Posts.API.Services;
 using Posts.API.Services.Interfaces;
 using Posts.Data;
@@ -18,6 +19,10 @@ builder.Services.AddDbContext<PostsDbContext>(x =>
 
 builder.Services.AddScoped<ICommentsService, CommentsService>();
 builder.Services.AddScoped<IPostsService, PostsService>();
+
+builder.Services.AddHostedService<CreateCommentRequestedEventConsumer>();
+builder.Services.AddHostedService<CreatePostRequestedEventConsumer>();
+builder.Services.AddHostedService<DeleteCommentRequestedEventConsumer>();
 
 var app = builder.Build();
 

@@ -1,13 +1,26 @@
 version: '3'
 services:
+  gatewayapi:
+    image: mediablog/gatewayapi
+    build:
+      context: ./src/MediaBlog
+      dockerfile: Gateway.API/Dockerfile
+    ports:
+      - 32770:8080
+      - 32771:8081
+    environment:
+      RabbitMQ__Hostname: rabbitmq
+      RabbitMQ__Username: $RABBITMQ_USER
+      RabbitMQ__Password: $RABBITMQ_PWD
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+        
   postsapi:
     image: mediablog/postsapi
     build:
       context: ./src/MediaBlog
       dockerfile: Posts.API/Dockerfile
-    ports:
-      - 32770:8080
-      - 32771:8081
     environment:
       ConnectionStrings__Default: Server=sqlserver;Initial Catalog=PostsDB;User Id=sa;Password=$MSSRV_PWD;TrustServerCertificate=True
       RabbitMQ__Hostname: rabbitmq

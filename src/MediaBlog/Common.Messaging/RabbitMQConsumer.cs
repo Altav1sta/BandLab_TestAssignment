@@ -1,9 +1,11 @@
-﻿using RabbitMQ.Client;
+﻿using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
 using System.Text.Json;
 
-namespace Posts.API.Messaging
+namespace Common.Messaging
 {
     public abstract class RabbitMQConsumer<T>(IConnection connection, ILogger logger, string queue) : BackgroundService
     {
