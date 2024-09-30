@@ -3,6 +3,7 @@ using Common.Messaging.Events;
 using Common.Messaging.Interfaces;
 using Gateway.API.Models.Requests;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace Gateway.API.Controllers
 {
@@ -32,13 +33,14 @@ namespace Gateway.API.Controllers
         [HttpDelete("{postId}/comments/{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
-        public IActionResult DeleteComment([FromRoute] int postId, [FromRoute] long id)
+        public IActionResult DeleteComment([FromRoute] int postId, [FromRoute] long id, [FromQuery] [Required] string author)
         {
             // Fire the event which handler will delete the comment and update the counter
             var eventModel = new DeleteCommentRequestedEvent
             {
                 PostId = postId,
-                CommentId = id
+                CommentId = id,
+                Author = author
             };
 
             messageProducer.SendMessage(eventModel, MessagingConsts.Queues.DeleteCommentRequestedQueue);

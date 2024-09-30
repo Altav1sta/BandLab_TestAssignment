@@ -46,7 +46,7 @@ namespace Posts.API.Services
         public async Task DeleteCommentAsync(DeleteCommentRequestedEvent model)
         {
             await context.Comments
-                .Where(x => x.Id == model.CommentId)
+                .Where(x => x.Id == model.CommentId && x.PostId == model.PostId && x.Author == model.Author)
                 .ExecuteDeleteAsync();
 
             logger.LogInformation("Comment deleted successfully");
